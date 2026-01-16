@@ -7,12 +7,12 @@ const { verifyEmailConfig } = require('./src/config/email');
 
 const PORT = process.env.PORT || 5000;
 
-// Graceful shutdown handlers
+// shutdown handlers
 const gracefulShutdown = (signal) => {
   logger.info(`${signal} received: closing HTTP server and database connection`);
   server.close(() => {
     logger.info('HTTP server closed');
-    // Close MongoDB connection
+    // Close Mongodb connection
     require('mongoose').connection.close(() => {
       logger.info('MongoDB connection closed');
       process.exit(0);
@@ -26,7 +26,7 @@ process.on('SIGINT', () => gracefulShutdown('SIGINT'));
 // Start server
 const startServer = async () => {
   try {
-    // Connect to MongoDB
+    // Connect to Mongo
     await connectDB();
     const User = require('./src/models/User');
     const userCount = await User.countDocuments({});
@@ -49,10 +49,10 @@ const startServer = async () => {
       logger.info(`Users already exist (${userCount}). Skipping super admin creation.`);
     }
 
-    // Verify email configuration (optional, non-blocking)
+    // Verify email configuration 
     verifyEmailConfig();
 
-    // Start Express server
+    // Start server
     const server = app.listen(PORT, () => {
       logger.info(`Server is running on port ${PORT}`);
       logger.info(`Environment: ${process.env.NODE_ENV || 'development'}`);
@@ -60,7 +60,7 @@ const startServer = async () => {
       logger.info(`Health Check: http://localhost:${PORT}/health`);
     });
 
-    // Handle unhandled promise rejections
+    // unhandled promise rejections
     process.on('unhandledRejection', (err) => {
       logger.error('Unhandled Promise Rejection:', err);
       // Close server & exit process
@@ -69,7 +69,7 @@ const startServer = async () => {
       });
     });
 
-    // Handle uncaught exceptions
+    // Handle exceptions
     process.on('uncaughtException', (err) => {
       logger.error('Uncaught Exception:', err);
       process.exit(1);
@@ -82,4 +82,5 @@ const startServer = async () => {
 };
 
 // Run the server
+
 startServer();
