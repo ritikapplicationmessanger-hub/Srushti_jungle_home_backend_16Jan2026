@@ -5,11 +5,11 @@ const logger = require('../utils/logger');
 const connectDB = async () => {
   try {
     const conn = await mongoose.connect(process.env.MONGODB_URI);
-    // No options needed anymore!
+
 
     logger.info(`MongoDB Connected: ${conn.connection.host}`);
 
-    // Connection events
+    // Connection 
     mongoose.connection.on('disconnected', () => {
       logger.warn('MongoDB disconnected');
     });
@@ -30,3 +30,4 @@ const connectDB = async () => {
 
 
 module.exports = connectDB;
+
