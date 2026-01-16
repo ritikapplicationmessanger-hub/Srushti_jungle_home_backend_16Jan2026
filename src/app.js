@@ -23,14 +23,14 @@ app.use(
   })
 );
 
-// Request logging (use winston in production, morgan in dev)
+// Request logging 
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 } else {
   app.use(morgan('combined', { stream: { write: (msg) => logger.info(msg.trim()) } }));
 }
 
-// Body parsers
+
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
@@ -43,7 +43,7 @@ app.use('/api', apiLimiter);
 // API Routes
 app.use('/api/v1', routes);
 
-// Health check endpoint
+// Health check 
 app.get('/health', (req, res) => {
   res.status(200).json({
     success: true,
@@ -65,7 +65,7 @@ app.get('/', (req, res) => {
 });
 
 
-// Handle 404 - Route not found
+// 404 - Route not found
 app.use((req, res) => {
   res.status(404).json({
     success: false,
@@ -73,9 +73,10 @@ app.use((req, res) => {
   });
 });
 
-// Optional: Friendly message on root
 
-// Global error handler (must be last)
+
+// Global error handler
 app.use(errorHandler);
+
 
 module.exports = app;
