@@ -35,7 +35,7 @@ const startServer = async () => {
       try {
         const superAdmin = new User({
           name: 'Super Admin',
-          email: 'admin@corepench.com',
+          email: 'riti9654@gmail.com',
           role: 'admin',
           isActive: true,
         });
@@ -84,3 +84,4 @@ const startServer = async () => {
 // Run the server
 
 startServer();
+
