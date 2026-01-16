@@ -1,4 +1,4 @@
-// src/config/database.js
+
 const mongoose = require('mongoose');
 const logger = require('../utils/logger');
 
@@ -27,5 +27,6 @@ const connectDB = async () => {
     process.exit(1);
   }
 };
+
 
 module.exports = connectDB;
