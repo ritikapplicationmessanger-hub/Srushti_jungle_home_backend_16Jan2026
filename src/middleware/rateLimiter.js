@@ -12,7 +12,7 @@ const apiLimiter = rateLimit({
   },
 });
 
-// Strict limiter for authentication routes (10 attempts per 15 minutes)
+//  limiter for authentication routes (10 attempts per 15 minutes)
 const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 10,
@@ -29,3 +29,4 @@ module.exports = {
   authLimiter,
 
 };
+
