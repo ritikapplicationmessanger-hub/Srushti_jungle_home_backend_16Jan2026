@@ -493,6 +493,7 @@ const sendBookingConfirmationEmail = async (booking) => {
           <tr><td>Total Amount</td><td>₹${booking.totalAmount?.toLocaleString('en-IN') || 'N/A'}</td></tr>
           <tr><td>Advance Paid</td><td>₹${booking.advancePaid?.toLocaleString('en-IN') || '0'}</td></tr>
           <tr><td>Balance Due</td><td><strong>₹${booking.balance?.toLocaleString('en-IN') || 'N/A'}</strong></td></tr>
+          <tr><td> Additional Request</td><td>${booking.request || 'N/A'}</td></tr>
         </table>
       </div>
 
@@ -613,6 +614,7 @@ const sendCheckOutEmail = async (booking, payment, property) => {
           <tr><td>Total Amount</td><td>₹${(payment?.totalAmount || booking.totalAmount).toLocaleString('en-IN')}</td></tr>
           <tr><td>Amount Paid</td><td>₹${(payment?.paidAmount || booking.advancePaid).toLocaleString('en-IN')}</td></tr>
           <tr><td>Balance</td><td>₹${booking.balance.toLocaleString('en-IN')}</td></tr>
+          // <tr><td> Additional Request</td><td>${booking.request || 'None'}</td></tr>
         </table>
       </div>
 

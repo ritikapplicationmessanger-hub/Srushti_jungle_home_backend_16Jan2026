@@ -1,7 +1,7 @@
 const nodemailer = require('nodemailer');
 const logger = require('../utils/logger');
 
-
+// Create reusable transporter object using Gmail with App Password
 const createTransporter = () => {
   return nodemailer.createTransporter({
     service: 'gmail',
@@ -36,5 +36,4 @@ const verifyEmailConfig = async () => {
 module.exports = {
   createTransporter,
   verifyEmailConfig,
-
 };

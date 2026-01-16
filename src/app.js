@@ -15,7 +15,7 @@ const app = express();
 // Security middleware
 app.use(helmet());
 
-
+// CORS configuration
 app.use(
   cors({
     origin: process.env.FRONTEND_URL || 'http://localhost:3000',
@@ -23,14 +23,14 @@ app.use(
   })
 );
 
-// Request logging 
+// Request logging (use winston in production, morgan in dev)
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
 } else {
   app.use(morgan('combined', { stream: { write: (msg) => logger.info(msg.trim()) } }));
 }
 
-
+// Body parsers
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
@@ -43,7 +43,7 @@ app.use('/api', apiLimiter);
 // API Routes
 app.use('/api/v1', routes);
 
-// Health check 
+// Health check endpoint
 app.get('/health', (req, res) => {
   res.status(200).json({
     success: true,
@@ -65,7 +65,7 @@ app.get('/', (req, res) => {
 });
 
 
-// 404 - Route not found
+// Handle 404 - Route not found
 app.use((req, res) => {
   res.status(404).json({
     success: false,
@@ -73,11 +73,9 @@ app.use((req, res) => {
   });
 });
 
+// Optional: Friendly message on root
 
-
-// Global error handler
+// Global error handler (must be last)
 app.use(errorHandler);
 
-
 module.exports = app;
-
